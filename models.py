@@ -1,8 +1,9 @@
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import Column, DateTime, String, select, ForeignKey
+from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy import delete as sqlalchemy_delete
+from sqlalchemy import select
 from sqlalchemy import update as sqlalchemy_update
 
 from database import Base, db
@@ -121,14 +122,14 @@ class Order(Base):
         return order
 
     @classmethod
-    async def get_all_orders_by_customer_id(cls, id):
+    async def get_all_orders_by_user_id(cls, id):
         query = select(cls).where(cls.customer == id)
         orders = await db.execute(query)
         orders = orders.scalars().all()
         return orders
 
     @classmethod
-    async def get_order_by_customer_id(cls, user_id, order_id):
+    async def get_order_by_user_id(cls, user_id, order_id):
         query = select(cls).where(cls.customer == user_id, cls.id == order_id)
         orders = await db.execute(query)
         (order,) = orders.first()

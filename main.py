@@ -1,5 +1,6 @@
-from database import db
 from fastapi import FastAPI
+
+from database import db
 
 
 def init_app():
@@ -19,7 +20,7 @@ def init_app():
     async def shutdown():
         await db.close()
 
-    from views import users_api, orders_api
+    from views import orders_api, users_api
 
     app.include_router(
         users_api,

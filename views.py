@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from models import User, Order
+from models import Order, User
 
 
 class UserSchema(BaseModel):
@@ -88,11 +88,11 @@ async def delete_user(user_id: str):
 
 @users_api.get("/{user_id}/orders", response_model=list[OrderSerializer])
 async def get_orders(user_id: str):
-    orders = await Order.get_all_orders_by_customer_id(user_id)
+    orders = await Order.get_all_orders_by_user_id(user_id)
     return orders
 
 
 @users_api.get("/{user_id}/orders/{order_id}", response_model=OrderSerializer)
-async def get_orders(user_id: str, order_id: str):
-    order = await Order.get_order_by_customer_id(user_id, order_id)
+async def get_order_by_user_id(user_id: str, order_id: str):
+    order = await Order.get_order_by_user_id(user_id, order_id)
     return order

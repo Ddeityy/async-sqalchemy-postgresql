@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,4 +11,4 @@ class Config:
     DB_NAME = os.getenv("DB_NAME")
     DB_HOST = os.getenv("DB_HOST")
 
-    DB_CONFIG = f"postgresql+asyncpg://project:syt25ygcnhor@127.0.0.1/project_db"
+    DB_CONFIG = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}" f"@{DB_HOST}/{DB_NAME}"
